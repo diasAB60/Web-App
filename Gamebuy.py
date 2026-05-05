@@ -16,7 +16,7 @@ async def callback(callback: types.CallbackQuery):
 @dp.message(Command('start'))
 async def command_start(message: types.Message):
     builder = ReplyKeyboardBuilder()
-    builder.row(types.KeyboardButton(text = 'Game store', web_app = WebAppInfo(url = 'https://itprogrer.com')))
+    builder.row(types.KeyboardButton(text = 'Game store', web_app = WebAppInfo(url = 'https://diasab60.github.io/Web-App/')))
 
     markup = builder.as_markup(resize_keyboard = True, one_time_keyboard = True)
     await message.answer('Hello! This bot helps you to buy a game. If you want to see game list please click the link below: ', reply_markup = markup)
