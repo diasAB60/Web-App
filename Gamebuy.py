@@ -1,28 +1,100 @@
 import asyncio
+import os
+import sqlite3
+import time
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 from aiogram.types.web_app_info import WebAppInfo
 
-bot_token = "7780929287:AAESXU78-UZVwrTQsyJPJu3JlyVtxiUxRqc"
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, 'webStore_feedbacks.db')
+
+conn = sqlite3.connect(db_path)
+cur = conn.cursor()
+
+cur.execute('''CREATE TABLE IF NOT EXISTS feedback \
+(id INTEGER PRIMARY KEY AUTOINCREMENT,
+user_id INTEGER,
+username TEXT,
+feedback_type TEXT,
+time INTEGER)''')
+conn.commit()
+cur.close()
+conn.close()
+
+
+
+bot_token = "7780929287:AAEEi2ceOsRVIvSscs4bkiS9VS5lUrsylFM"
 bot = Bot(token = bot_token)
 dp = Dispatcher()
 
-@dp.callback_query()
-async def callback(callback: types.CallbackQuery):  
-    await callback.answer()
-    await callback.message.answer(callback.data)
 
 @dp.message(Command('start'))
 async def command_start(message: types.Message):
-    builder = ReplyKeyboardBuilder()
-    builder.row(types.KeyboardButton(text = 'Game store', web_app = WebAppInfo(url = 'https://diasab60.github.io/Web-App/')))
+    buttons = ReplyKeyboardBuilder()
 
-    markup = builder.as_markup(resize_keyboard = True, one_time_keyboard = True)
-    await message.answer('Hello! This bot helps you to buy a game. If you want to see game list please click the link below: ', reply_markup = markup)
+    await message.answer(f"Hello {message.from_user.first_name}! This bot helps you to buy a game. If you want to buy a game or see game list please click <b>'Game store' </b> button🤝: ", parse_mode = 'html', reply_markup = buttons.as_markup())
 
     
+    btn1 = types.KeyboardButton(text = " Game store ",web_app = WebAppInfo(url = 'https://diasab60.github.io/Web-App/'))
+    btn2 = types.KeyboardButton(text = " This bot helped me 👍!")
+    btn3 = types.KeyboardButton(text = " This bot didn't help me👎🏻! It needs update ")
+    buttons.row(btn1)
+    buttons.row(btn2, btn3) 
+    await message.answer("And if not hard, please leave feedback 🙏🏻", reply_markup = buttons.as_markup(resize_keyboard = True))
 
+
+@dp.message(F.text)
+async def buttons_handler(message):
+    if (message.chat.type == 'private'):
+
+        if (message.text == "This bot helped me 👍!"):
+            await message.answer("We're glad to hear it! Our bot is getting better and better every day! 🙏🏻")
+    
+        elif (message.text == "This bot didn't help me👎🏻! It needs update"):
+            markup = InlineKeyboardBuilder()
+            markup.button(text = "Bot is slow", callback_data = 'error_slow')
+            markup.button(text = "Store is not working correctly", callback_data = 'error_store')
+            markup.button(text = "Not many functions", callback_data = 'error_functions')
+            markup.button(text = "Others", callback_data = 'error_others')
+
+            markup.adjust(2)
+
+            await message.answer("Our apologies. What exactly did you dislike about our bot? 🙌", reply_markup = markup.as_markup())
+
+
+@dp.callback_query()
+async def bot_buttons_handler(call: types.CallbackQuery):
+    if (call.data.startswith("error")):
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+
+        cur.execute('''INSERT INTO feedback(user_id, username, feedback_type, time) VALUES(?, ?, ?, ?)''', 
+                    (call.from_user.id, 
+                    call.from_user.username, 
+                    call.data, 
+                    int(time.time()
+                    )
+                )
+            )
+
+        conn.commit()
+        conn.close()
+
+    if (call.data == 'error_slow'):
+        await call.answer("Thank you for feedback. We are already working on our bot's slowness! 🫰🏻")
+
+    elif (call.data == 'error_store'):
+        await call.answer('Thank you for feedback. We are already working on our store! 🫰🏻')    
+
+    elif (call.data == 'error_functions'):
+        await call.answer("Thank you for feedback. We are already improving out bot's functionality! 🫰🏻") 
+
+    elif (call.data == 'error_others'):
+        await call.answer('Thank you for feedback. We are improving our bot everyday! 🫰🏻')       
 
 async def main():
     await dp.start_polling(bot)
