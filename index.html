@@ -11,13 +11,39 @@
 </head>
 
 <body> 
-    <h1 style = "display: flex; justify-content: center; color: white;"> <i> Welcome to Game Store!  </i></h1>
-    <div class = "image">
-        <img src = "ImageGames.png" height = "200" weight = "200"> 
-    </div>    
 
-    <div class = "button"> 
-        <button type = "button" class = "buy-btn"> <b> Buy a game </b> </button>
-    </div>    
+    <div id = "main">
+        <h1 style = "display: flex; justify-content: center; color: white;">
+            <i> Welcome to Game Store!  </i>
+        </h1>
+
+        <div class = "image">
+            <img src = "ImageGames.png" height = "200" width = "200"> 
+        </div>    
+
+        <div class = "button"> 
+            <button id = "buy" type = "button" class = "buy-btn"> 
+                <b> Buy a game </b> 
+            </button>
+        </div>
+    </div> 
+    
+    <form id = "form"> 
+        <input type = "text" placeholder = "Name" id = "user_name">
+        <input type = "text" placeholder = "Email" id = "user_email">
+        <input type = "text" placeholder = "Phone number" id = "user_phone">
+    </form>
+
+    <script src = "https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let tg = window.Telegram.WebApp;
+        let buy = document.getElementById("buy");
+
+        buy.addEventListener("click", () => {
+            document.getElementById("main").style.display = "none";
+            document.getElementById("form").style.display = "block";
+            document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
+        })
+    </script>
 </body>
 </html>
