@@ -11,12 +11,13 @@
     height: 40px;
     color: rgb(148, 231, 85);
     border-radius: 5px;
-
-    transition: 0.3s;
+    cursor: pointer;
+    transition: all 500ms ease;
+    color: var(--tg-theme-button-color);
+    background: var(--tag-theme-button-text-color);
 }
 .buy-btn:hover {
-    background-color: black;
-    color: rgb(148, 231, 85);
+    background: var(--tag-theme-secondary-bg-color);
 }
 
 .image {
