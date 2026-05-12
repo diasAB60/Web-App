@@ -32,12 +32,15 @@
         <input type = "text" placeholder = "Name" id = "user_name">
         <input type = "text" placeholder = "Email" id = "user_email">
         <input type = "text" placeholder = "Phone number" id = "user_phone">
+        <div id = "error"> </div>
+        <button id = "order" type = "button" class = "order-btn"> Arrange </button>
     </form>
 
     <script src = "https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         let tg = window.Telegram.WebApp;
         let buy = document.getElementById("buy");
+        let order = document.getElementById("order");
 
         tg.ready();
 
@@ -47,14 +50,43 @@
             let form = document.getElementById("form");
             form.style.display = "flex";
             
-            if (tg.initDataUnsafe && th.initDataUnsafe.user) {
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
                 let user = tg.initDataUnsafe.user;
                 let fullName = user.first_name;
                 if (user.last_name) {
-                    fullName + " " + user.last_name;
+                    fullName += " " + user.last_name;
                 }
-                document.getElementById("user_name".value = fullName);
+                document.getElementById("user_name").value = fullName;
             }
+        });
+
+        order.addEventListener("click", () => {
+            document.getElementById("error").inner.Text = '';
+            let name = document.getElementById("user_name").value;
+            let email = document.getElementById("user_email").value;
+            let phone = document.getElementById("user_phone").value;
+
+            if (name.length < 5) {
+                document.getElementById("error").inner.Text = 'Error in name';
+                return;
+            }
+            if (email.length < 5) {
+                document.getElementById("error").inner.Text = 'Error in email';
+                return;
+            }
+            if (phone.length < 5) {
+                dcument.getElementById("error").inner.Text = 'Error in phone number';
+                return;
+            }
+
+            let data = {
+                name: name,
+                email: email,
+                phone: phone
+            }
+            tg.sendData(JSON.stringify(data));
+
+            tg.close();
         });
     </script>
 </body>
