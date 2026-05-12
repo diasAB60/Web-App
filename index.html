@@ -39,11 +39,23 @@
         let tg = window.Telegram.WebApp;
         let buy = document.getElementById("buy");
 
+        tg.ready();
+
         buy.addEventListener("click", () => {
+
             document.getElementById("main").style.display = "none";
-            document.getElementById("form").style.display = "block";
-            document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
-        })
+            let form = document.getElementById("form");
+            form.style.display = "flex";
+            
+            if (tg.initDataUnsafe && th.initDataUnsafe.user) {
+                let user = tg.initDataUnsafe.user;
+                let fullName = user.first_name;
+                if (user.last_name) {
+                    fullName + " " + user.last_name;
+                }
+                document.getElementById("user_name".value = fullName);
+            }
+        });
     </script>
 </body>
 </html>
