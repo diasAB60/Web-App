@@ -2,6 +2,7 @@ import asyncio
 import os
 import sqlite3
 import time
+import json
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
@@ -93,7 +94,29 @@ async def bot_buttons_handler(call: types.CallbackQuery):
         await call.answer("Thank you for feedback. We are already improving out bot's functionality! 🫰🏻") 
 
     elif (call.data == 'error_others'):
-        await call.answer('Thank you for feedback. We are improving our bot everyday! 🫰🏻')       
+        await call.answer('Thank you for feedback. We are improving our bot everyday! 🫰🏻')  
+
+
+
+@dp.message(F.web_app_data)
+async def webApp(message: types.Message):
+    raw_data = message.web_app_data.data 
+
+    try:
+        data = json.loads(raw_data)
+
+        name = data.get('name')
+        email = data.get('email')
+        phone = data.get('phone')
+
+        response_text = (f" Order received successfully!\n\n"
+                         f"Name: {name}\n"
+                         f"Email: {email}\n"
+                         f"Phone: {phone}")
+        await message.answer(response_text)
+    except Exception as e:
+        await message.answer(f"Received raw data: {raw_data}")
+
 
 async def main():
     await dp.start_polling(bot)

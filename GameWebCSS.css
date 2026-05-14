@@ -25,10 +25,10 @@ body {
     cursor: pointer;
     transition: all 500ms ease;
     color: var(--tg-theme-button-color);
-    background: var(--tag-theme-button-text-color);
+    background: var(--tg-theme-button-text-color);
 }
 .buy-btn:hover {
-    background: var(--tag-theme-secondary-bg-color);
+    background: var(--tg-theme-secondary-bg-color);
 }
 
 .image {
@@ -73,4 +73,11 @@ input {
 }
 .order-btn:hover {
     filter: brightness(0.9);
+}
+
+#error {
+    color: #e53935;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
 }
