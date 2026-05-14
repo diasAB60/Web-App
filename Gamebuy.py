@@ -36,13 +36,14 @@ dp = Dispatcher()
 @dp.message(Command('start'))
 async def command_start(message: types.Message):
     
-    game_store = InlineKeyboardBuilder()
-    game_store.add(types.InlineKeyboardButton(text = " Game store ",web_app = WebAppInfo(url = 'https://diasab60.github.io/Web-App/')))
-    await message.answer(f"Hello {message.from_user.first_name}! This bot helps you to buy a game. If you want to buy a game or see game list please click <b>'Game store' </b> button🤝: ", parse_mode = 'html', reply_markup = game_store.as_markup())
+    
+    await message.answer(f"Hello {message.from_user.first_name}! This bot helps you to buy a game. If you want to buy a game or see game list please click <b>'Game store' </b> button🤝: ", parse_mode = 'html')
 
     buttons = ReplyKeyboardBuilder()
+    btn1 = types.KeyboardButton(text = " Game store ",web_app = WebAppInfo(url = 'https://diasab60.github.io/Web-App/'))
     btn2 = types.KeyboardButton(text = " This bot helped me 👍!")
     btn3 = types.KeyboardButton(text = " This bot didn't help me👎🏻! It needs update ")
+    buttons.row(btn1)
     buttons.row(btn2, btn3) 
     await message.answer("And if not hard, please leave feedback 🙏🏻", reply_markup = buttons.as_markup(resize_keyboard = True))
 
