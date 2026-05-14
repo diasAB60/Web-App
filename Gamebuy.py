@@ -7,6 +7,7 @@ from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 from aiogram.types.web_app_info import WebAppInfo
+from config import BOT_TOKEN
 
 
 
@@ -28,8 +29,7 @@ conn.close()
 
 
 
-bot_token = "7780929287:AAEEi2ceOsRVIvSscs4bkiS9VS5lUrsylFM"
-bot = Bot(token = bot_token)
+TOKEN = BOT_TOKEN
 dp = Dispatcher()
 
 
@@ -120,6 +120,7 @@ async def webApp(message: types.Message):
 
 
 async def main():
+    bot = Bot(token = TOKEN)
     await dp.start_polling(bot)
 
 if (__name__ == "__main__"):
