@@ -14,6 +14,19 @@ p {
     padding-right: 5px;
 }
 
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    justify-items: center;
+    padding: 15px;
+}
+.game-list img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
 .button {
     display: flex;
     justify-content: center;
