@@ -22,7 +22,7 @@
         </div>    
 
         <div class = "button"> 
-            <button id = "buy" type = "button" class = "buy-btn"> 
+            <button id = "menu" type = "button" class = "buy-btn"> 
                 <b> Game menu </b> 
             </button>
         </div>
@@ -32,6 +32,16 @@
             <p><b> After picking your game(s) and clicking "Buy" button, choose how you would like to pay for the game. Choose a platform to safe the game and all. Enjoy your game!</b></p>
         </div>
     </div> 
+
+    <div id = "game-menu" style = "display: none;"> 
+        <h2 style = "text-align: center;"> Game store </h2>
+
+        <div class = "game-list"> 
+            <p> Game catalog coming soon... </p>
+
+            <button id = "go_to_form" type = "button" class = "order-btn"> Buy </button>
+        </div>
+    </div>
     
     <form id = "form"> 
         <input type = "text" placeholder = "Name" id = "user_name">
@@ -41,17 +51,23 @@
         <button id = "order" type = "button" class = "order-btn"> Arrange </button>
     </form>
 
-    <script src = "https://telegram.org/js/telegram-web-app.js"></script>
+    
     <script>
         let tg = window.Telegram.WebApp;
-        let buy = document.getElementById("buy");
-        let order = document.getElementById("order");
+        let menuBtn = document.getElementById("menu");
+        let orderBtn = document.getElementById("order");
+        let got_to_formBtn = document.getElementById("go_to_form");
+
+        menuBtn.addEventListener("click", () => {
+            document.getElementById("main").style.display = "none";
+            document.getElementById("game-menu").style.display = "block";
+        });
 
         tg.ready();
 
-        buy.addEventListener("click", () => {
+        got_to_formBtn.addEventListener("click", () => {
 
-            document.getElementById("main").style.display = "none";
+            document.getElementById("game-menu").style.display = "none";
             let form = document.getElementById("form");
             form.style.display = "flex";
             
@@ -65,7 +81,7 @@
             }
         });
 
-        order.addEventListener("click", () => {
+        orderBtn.addEventListener("click", () => {
             document.getElementById("error").innerText = '';
             let name = document.getElementById("user_name").value;
             let email = document.getElementById("user_email").value;
