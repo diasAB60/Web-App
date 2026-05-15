@@ -9,6 +9,11 @@ body {
     align-items: center;
 }
 
+p {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .button {
     display: flex;
     justify-content: center;
