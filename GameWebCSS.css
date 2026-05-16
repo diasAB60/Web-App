@@ -26,6 +26,19 @@ p {
     height: auto;
     border-radius: 5px;
 }
+.game-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+}
+.game-title {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--tg-theme-text-color, white);
+}
 
 .button {
     display: flex;
@@ -94,6 +107,24 @@ input::placeholder {
     margin-top: 10px;
 }
 .order-btn:hover {
+    filter: brightness(0.9);
+}
+
+.gamebuy-btn {
+    width: 70%;
+    display: block;
+    margin: 5px auto 0 auto;
+    background-color: var(--tg-theme-button-color, #248bcf); 
+    color: var(--tg-theme-button-text-color, white);
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    align-content: center;
+}
+.gamebuy-btn:hover {
     filter: brightness(0.9);
 }
 
