@@ -140,16 +140,32 @@
             let email = document.getElementById("user_email").value;
             let phone = document.getElementById("user_phone").value;
 
-            if (name.length < 5) {
-                document.getElementById("error").innerText = 'Error in name';
+            if (name.length < 5 && email.length < 5 && phone.length < 5) {
+                document.getElementById("error").innerText = "Error in name, email, phone";
+                return;
+            }    
+            else if (name.length >= 5 && email.length < 5 && phone.length < 5) {
+                document.getElementById("error").innerText = "Error in email, phone";
+                return;
+            }    
+            else if (email.length >= 5 && name.length < 5 && phone.length < 5) {
+                document.getElementById("error").innerText = "Error in name, phone";
                 return;
             }
-            if (email.length < 5) {
-                document.getElementById("error").innerText = 'Error in email';
+            else if (phone.length >= 5 && name.length < 5 && email.length < 5) {
+                document.getElementById("error").innerText = "Error in name, email";
                 return;
             }
-            if (phone.length < 5) {
-                document.getElementById("error").innerText = 'Error in phone number';
+            else if (email.length >= 5 && name.length >= 5 && phone.length < 5) {
+                document.getElementById("error").innerText = "Error in phone";
+                return;
+            }
+            else if (email.length >= 5 && phone.length >= 5 && name.length < 5) {
+                document.getElementById("error").innerText = "Error in name";
+                return;
+            }
+            else if (email.length >= 5 && phone.length >= 5 && email.length < 5) {
+                document.getElementById("error").innerText = "Error in email";
                 return;
             }
 
