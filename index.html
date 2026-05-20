@@ -39,50 +39,74 @@
         <button id = "back_to_main" type = "button" class = "back-btn"> ⬅ Back </button>
 
         <div class = "game-list"> 
-            <div class = "game-card">
+            <div class = "game-card" onclick="openGameDetails('cs2')">
                 <img src = "Counter-strike_2.jpg" width = 100 height = 100>
-                <p class = "game-title"> Counter-Strike 2</p>
-                <p class = "game-title"> 499 ₸ </p>
+                <p class = "game-title" oneclick = "openGameDetails('cs2')"> Counter-Strike 2</p>
+                <p class = "game-title" oneclick = "openGameDetails('cs2')"> 499 ₸ </p>
             </div>  
             
-            <div class = "game-card">
+            <div class = "game-card" onclick = "openGameDetails('gta5')">
                 <img src = "Grand_Theft_Auto_V.png" width = 100 height = 100>
-                <p class = "game-title"> Grand-Theft-Auto 5 </p>
-                <p class = "game-title"> 15 999 ₸ </p>
+                <p class = "game-title" onclick = "openGameDetails('gta5')"> Grand-Theft-Auto 5 </p>
+                <p class = "game-title" onclick = "openGameDetails('gta5')"> 15 999 ₸ </p>
             </div>
 
-            <div class = "game-card">
+            <div class = "game-card" onclick = "openGameDetails('rdr2')">
                 <img src = "Red_Dead_Redemption_II.jpg" width = 100 height = 100>
-                <p class = "game-title"> Red Dead Redemption 2</p>
-                <p class = "game-title"> <s>29 999 ₸</s> 18 999 ₸</p>
+                <p class = "game-title" onclick = "openGameDetails('rdr2')"> Red Dead Redemption 2</p>
+                <p class = "game-title" onclick = "openGameDetails('rdr2')"> <s>29 999 ₸</s> 18 999 ₸</p>
             </div>
 
-            <div class = "game-card">
+            <div class = "game-card" onclick = "openGameDetails('tlou2')">
                 <img src = "Tlou2.png" width = 100 height = 100>
-                <p class = "game-title"> The last of us 2 </p>
-                <p class = "game-title"> <s>30 999 ₸</s> 19 999 ₸</p>
+                <p class = "game-title" onclick = "openGameDetails('tlou2')"> The last of us 2 </p>
+                <p class = "game-title" onclick = "openGameDetails('tlou2')"> <s>30 999 ₸</s> 19 999 ₸</p>
             </div>
 
-            <div class = "game-card">
+            <div class = "game-card" onclick = "openGameDetails('dota2')">
                 <img src = "Обложка_Dota_2.jpg" width = 100 height = 100>
-                <p class = "game-title"> Dota 2 </p>
-                <p class = "game-title"> 399 ₸ </p>
+                <p class = "game-title" onclick = "openGameDetails('dota2')"> Dota 2 </p>
+                <p class = "game-title" onclick = "openGameDetails('dota2')"> 399 ₸ </p>
             </div>
 
-            <div class = "game-card">
+            <div class = "game-card" onclick = "openGameDetails('fifa26')">
                 <img src = "fifa26.webp" width = 100 height = 100>
-                <p class = "game-title"> FIFA 26 </p>
-                <p class = "game-title"> 17 500 ₸ </p>
+                <p class = "game-title" onclick = "openGameDetails('fifa26')"> FIFA 26 </p>
+                <p class = "game-title" onclick = "openGameDetails('fifa26')"> 17 500 ₸ </p>
             </div>    
             
         </div>
-        <button id = "go_to_form" type = "button" class = "gamebuy-btn"> Buy </button>
+        
     </div>
 
 
-    <form id = "form"> 
+    <div id = "game-description" style = "display: none;">
+        <button id = "back_to_catalog" type = "button" class = "back-btn"> ⬅ Back to catalog </button>
 
-        <button id = "back_to_menu" type = "button" class = "back-btn"> ⬅ Back to menu </button>
+        <h2 id = "desk-title" style = "text-align: center; color: white"> Game title </h2>
+
+        <div class = "desk-media">
+            <img id = "desk-img" src = "" width = "250" height = "250">
+        </div>
+
+        <div class = "desk-info">
+            <h3> About the game </h3>
+            <p id = "desk-text"> Here is the description </p>
+            <h3 id = "desk-price" style = "color: #94e755"> 0 T </h3>
+        </div>
+
+        <div class = "reviews-section">
+            <h3> Feedbacks ⭐</h3> 
+            <div id = "reviews-container"></div>
+        </div>
+
+        <button id = "buy_this_game" type = "button" class = "gamebuy-btn"> Buy </button>
+    </div>
+
+
+    <form id = "form" style = "display: none;"> 
+
+        <button id = "back_to_menu" type = "button" class = "back-btn"> ⬅ Back to description </button>
 
         <input type = "text" placeholder = "Name" id = "user_name">
         <input type = "text" placeholder = "Email" id = "user_email">
@@ -93,12 +117,95 @@
 
     
     <script>
+
+
+        const gameData = {
+            cs2: {
+                title: "Counter-Strike 2",
+                img: "Counter-strike_2.jpg",
+                price: "499 ₸",
+                text: "The next era of tactical competitive counter-strike. Experience upgraded maps, sub-tick updates, and overhauled smoke mechanics.",
+                reviews: [
+                "Best tactical shooter out there! Smooth frames. - *SanyaPro*",
+                "Smokes look insane, missing some classic maps though. - *Arman_K*"]
+            },
+            gta5: {
+                title: "Grand-Theft-Auto 5",
+                img: "Grand_Theft_Auto_V.png",
+                price: "15 999 ₸",
+                text: "The bext game of RockStar! The evolution of all the previous GTA's",
+                reviews: [
+                    "My favorite game of RockStar - *Artur Morgan*",
+                    "Need cheatcode for money!!! - *Spider Man*"]
+            },
+            rdr2: {
+                title: "Read Dead Redemption 2",
+                img: "Red_Dead_Redemption_II.jpg",
+                price: "18 999 ₸",
+                text: "Not common gta. After this game, you won't be the same...",
+                reviews: [
+                    "My favorite game of RockStar - *Artur Morgan*",
+                    "Need cheatcode for money!!! - *Spider Man*"]
+            },
+            tlou2: {
+                title: "The Last Of Us 2",
+                img: "Tlou2.png",
+                price: "19 999 ₸",
+                text: "The continuation of the last of us. What happenned to the main characters? What are their destiny?",
+                reviews: [
+                    "Cried after this game - *AKAROX*",
+                    "You all ruined in this part - *qwerty*"]
+            },
+            dota2: {
+                title: "Dota 2",
+                img: "Обложка_Dota_2.jpg",
+                price: "399 ₸",
+                text: "Real RPG and better version of warcraft",
+                reviews: [
+                    "No one can't play normally - *Thorfin*",
+                    "Randoms!!! - *Cheat coder*"]
+            },
+            fifa26: {
+                title: "FIFA 26",
+                img: "fifa26.webp",
+                price: "17 500 ₸",
+                text: "Wanna win the world cup or the champion's league? Here, show them how you are skilled",
+                reviews: [
+                    "I think this is the best version of fifa - *ConorXRonaldo*",
+                    "Where is Kazakhstan?! - *1000-7_SSS*"]
+            },
+        }
+
+        function openGameDetails(gameKey) {
+            let data = gameData[gameKey];
+            if (!data) return;
+
+            document.getElementById("desk-title").innerText = data.title;
+            document.getElementById("desk-img").src = data.img;
+            document.getElementById("desk-text").innerText = data.text;
+            document.getElementById("desk-price").innerText = data.price;
+
+            let reviewsDiv = document.getElementById("reviews-container");
+            reviewsDiv.innerHTML = "";
+            data.reviews.forEach(review => {
+                let p = document.createElement("p");
+                p.className = "review-item";
+                p.innerHTML = review;
+                reviewsDiv.appendChild(p);
+            });
+
+            document.getElementById("game-menu").style.display = "none";
+            document.getElementById("game-description").style.display = "block";
+        }
+
+
         let tg = window.Telegram.WebApp;
         let menuBtn = document.getElementById("menu");
         let orderBtn = document.getElementById("order");
-        let got_to_formBtn = document.getElementById("go_to_form");
 
         let backToMainBtn = document.getElementById("back_to_main");
+        let backToCatalogBtn = document.getElementById("back_to_catalog");
+        let buyThisGameBtn = document.getElementById("buy_this_game");
         let backToMenuBtn = document.getElementById("back_to_menu");
 
         backToMainBtn.addEventListener("click", () => {
@@ -106,9 +213,29 @@
             document.getElementById("main").style.display = "block";
         });
 
+        backToCatalogBtn.addEventListener("click", () => {
+            document.getElementById("game-description").style.display = "none";
+            document.getElementById("game-menu").style.display = "block";
+        });
+
+        buyThisGameBtn.addEventListener("click", () => {
+            document.getElementById("game-description").style.display = "none";
+            let form = document.getElementById("form");
+            form.style.display = "flex";
+
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                let user = tg.initDataUnsafe.user;
+                let fullname = tg.user.first_name;
+                if (user.last_name) {
+                    fullname += " " + user.last_name;
+                }
+                document.getElementById("user_name").value = fullname;
+            }
+        });
+
         backToMenuBtn.addEventListener("click", () => {
             document.getElementById("form").style.display = "none";
-            document.getElementById("game-menu").style.display = "block";
+            document.getElementById("game-description").style.display = "block";
         });
 
         menuBtn.addEventListener("click", () => {
@@ -118,21 +245,6 @@
 
         tg.ready();
 
-        got_to_formBtn.addEventListener("click", () => {
-
-            document.getElementById("game-menu").style.display = "none";
-            let form = document.getElementById("form");
-            form.style.display = "flex";
-            
-            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                let user = tg.initDataUnsafe.user;
-                let fullName = user.first_name;
-                if (user.last_name) {
-                    fullName += " " + user.last_name;
-                }
-                document.getElementById("user_name").value = fullName;
-            }
-        });
 
         orderBtn.addEventListener("click", () => {
             document.getElementById("error").innerText = '';
