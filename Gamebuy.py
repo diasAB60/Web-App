@@ -109,11 +109,32 @@ async def webApp(message: types.Message):
         name = data.get('name')
         email = data.get('email')
         phone = data.get('phone')
+        game_title = data.get('game', 'Selected Game')
+        price = data.get('price', '0 ₸')
+
+        clean_price = price.replace(' ₸', '').replcae(' ', '')
+
+
+        mock_payment_url = (
+            f"https://auth.robokassa.ru/Merchant/Index.aspx?"
+            f"MerchantLogin=demo_game_store&"
+            f"OutSum={clean_price}&"
+            f"InvId=12345&"
+            f"Description=Payment for {game_title}&"
+            f"IsTest=1"
+        )
+
+        pay_keyboard = InlineKeyboardBuilder()
+        pay_keyboard.add(types.InlineKeyboardButton(text = f" Please, click here to pay the price {price}", url = mock_payment_url))
+
 
         response_text = (f" Order received successfully!\n\n"
                          f"Name: {name}\n"
                          f"Email: {email}\n"
-                         f"Phone: {phone}")
+                         f"Phone: {phone}"
+                         f"Game: {game_title}"
+                         f"Price: {price}"
+                         f"Please click the button below to pay in robokassa")
         await message.answer(response_text)
     except Exception as e:
         await message.answer(f"Received raw data: {raw_data}")

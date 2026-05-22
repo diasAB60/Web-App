@@ -111,7 +111,7 @@ input::placeholder {
 }
 
 .gamebuy-btn {
-    width: 40%;
+    width: 50%;
     display: block;
     margin: 5px auto 0 auto;
     background-color: var(--tg-theme-button-color, #248bcf); 
@@ -129,7 +129,7 @@ input::placeholder {
 }
 
 .back-btn {
-    margin-left: 10px;
+    margin-left: 2px;
     font-weight: bold;
     font-size: 15px;
     background-color: var(--tg-theme-button-color, #248bcf);
