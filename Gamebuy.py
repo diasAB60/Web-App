@@ -116,7 +116,7 @@ async def webApp(message: types.Message):
 
 
         mock_payment_url = (
-            f"https://auth.robokassa.ru/Merchant/Index.aspx?"
+            f"https://auth.robokassa.kz/Merchant/Index.aspx?"
             f"MerchantLogin=demo_game_store&"
             f"OutSum={clean_price}&"
             f"InvId=12345&"
@@ -125,19 +125,19 @@ async def webApp(message: types.Message):
         )
 
         pay_keyboard = InlineKeyboardBuilder()
-        pay_keyboard.add(types.InlineKeyboardButton(text = f" Please, click here to pay price {price}", url = mock_payment_url))
+        pay_keyboard.add(types.InlineKeyboardButton(text = f" Pay {price}", url = mock_payment_url))
 
 
         response_text = (f" Order received successfully!\n\n"
                          f"Name: {name}\n"
-                         f"Email: {email}\n"
+                         f"Email: <code>{email}</code>\n"
                          f"Phone: {phone}"
-                         f"Game: {game_title}"
-                         f"Price: {price}"
-                         f"Please click the button below to pay via robokassa")
-        await message.answer(response_text, reply_markup=pay_keyboard.as_markup())
+                         f"\nGame: {game_title}"
+                         f"\nPrice: {price}"
+                         f"\n<b>Please click the button below to pay via Robokassa</b>")
+        await message.answer(response_text, parse_mode='html', reply_markup=pay_keyboard.as_markup())
     except Exception as e:
-        await message.answer(f"Received raw data: {raw_data}", end = " ")
+        await message.answer(f"Received raw data: {raw_data}")
 
 
 async def main():
