@@ -111,7 +111,7 @@ input::placeholder {
 }
 
 .gamebuy-btn {
-    width: 70%;
+    width: 40%;
     display: block;
     margin: 5px auto 0 auto;
     background-color: var(--tg-theme-button-color, #248bcf); 
@@ -141,6 +141,20 @@ input::placeholder {
 }
 .back-btn:hover {
     background: rgba(36, 139, 207, 0.1);
+}
+
+#game-description {
+    width: 100%;
+    text-align: center;
+}
+.desk-media {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.desk-info, .reviews-section {
+    text-align: center;
+    padding: 0 15px;
 }
 
 #error {

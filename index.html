@@ -39,6 +39,7 @@
         <button id = "back_to_main" type = "button" class = "back-btn"> ⬅ Back </button>
 
         <div class = "game-list"> 
+
             <div class = "game-card" onclick="openGameDetails('cs2')">
                 <img src = "Counter-strike_2.jpg" width = 100 height = 100>
                 <p class = "game-title" oneclick = "openGameDetails('cs2')"> Counter-Strike 2</p>
@@ -76,7 +77,6 @@
             </div>    
             
         </div>
-        
     </div>
 
 
@@ -225,7 +225,7 @@
 
             if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
                 let user = tg.initDataUnsafe.user;
-                let fullname = tg.user.first_name;
+                let fullname = user.first_name;
                 if (user.last_name) {
                     fullname += " " + user.last_name;
                 }
@@ -276,7 +276,7 @@
                 document.getElementById("error").innerText = "Error in name";
                 return;
             }
-            else if (email.length >= 5 && phone.length >= 5 && email.length < 5) {
+            else if (email.length >= 5 && phone.length >= 5 && name.length < 5) {
                 document.getElementById("error").innerText = "Error in email";
                 return;
             }
