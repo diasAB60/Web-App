@@ -118,6 +118,7 @@
     
     <script>
 
+        let currentGameKey = "";
 
         const gameData = {
             cs2: {
@@ -177,6 +178,8 @@
         }
 
         function openGameDetails(gameKey) {
+            currentGameKey = gameKey;
+        
             let data = gameData[gameKey];
             if (!data) return;
 
@@ -277,7 +280,7 @@
                 document.getElementById("error").innerText = "Error in name";
                 return;
             }
-            else if (email.length >= 5 && phone.length >= 5 && name.length < 5) {
+            else if (name.length >= 5 && phone.length >= 5 && email.length < 5) {
                 document.getElementById("error").innerText = "Error in email";
                 return;
             }
