@@ -109,8 +109,8 @@
         <button id = "back_to_menu" type = "button" class = "back-btn"> ⬅ Back to description </button>
 
         <input type = "text" placeholder = "Name" id = "user_name">
-        <input type = "text" placeholder = "Email" id = "user_email">
-        <input type = "text" placeholder = "Phone number" id = "user_phone">
+        <input type = "text" placeholder = "Name@mail/gmail" id = "user_email">
+        <input type = "text" placeholder = "+7" id = "user_phone">
         <div id = "error"> </div>
         <button id = "order" type = "button" class = "order-btn"> Arrange </button>
     </form>
@@ -255,35 +255,26 @@
             let email = document.getElementById("user_email").value;
             let phone = document.getElementById("user_phone").value;
             
+            let errorMessage = [];
 
-            if (name.length < 5 && email.length < 5 && phone.length < 5) {
-                document.getElementById("error").innerText = "Error in name, email, phone";
-                return;
-            }    
-            else if (name.length >= 5 && email.length < 5 && phone.length < 5) {
-                document.getElementById("error").innerText = "Error in email, phone";
-                return;
-            }    
-            else if (email.length >= 5 && name.length < 5 && phone.length < 5) {
-                document.getElementById("error").innerText = "Error in name, phone";
+            if (name.length < 2) {
+                errorMessage.push("Name is too short");
+            }
+
+            if (!email.includes("@")) {
+                errorMessage.push("Error in email");
+            }
+
+            if (!phone.startsWith("+7")) {
+                errorMessage.push("Error in phone (must start with +7)");
+            }
+
+            if (errorMessage.length > 0) {
+                document.getElementById("error").innerText = errorMessage.join(", ");
                 return;
             }
-            else if (phone.length >= 5 && name.length < 5 && email.length < 5) {
-                document.getElementById("error").innerText = "Error in name, email";
-                return;
-            }
-            else if (email.length >= 5 && name.length >= 5 && phone.length < 5) {
-                document.getElementById("error").innerText = "Error in phone";
-                return;
-            }
-            else if (email.length >= 5 && phone.length >= 5 && name.length < 5) {
-                document.getElementById("error").innerText = "Error in name";
-                return;
-            }
-            else if (name.length >= 5 && phone.length >= 5 && email.length < 5) {
-                document.getElementById("error").innerText = "Error in email";
-                return;
-            }
+
+
 
             let data = {
                 name: name,
