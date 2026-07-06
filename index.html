@@ -111,7 +111,7 @@
 
         <input type = "text" placeholder = "Name" id = "user_name">
         <input type = "text" placeholder = "Name@mail/gmail" id = "user_email">
-        <input type = "text" placeholder = "+7" id = "user_phone">
+        <input type = "text" value = "+7 " id = "user_phone">
         <div id = "error"> </div>
         <button id = "order" type = "button" class = "order-btn"> Arrange </button>
     </form>
@@ -211,6 +211,13 @@
         let backToCatalogBtn = document.getElementById("back_to_catalog");
         let buyThisGameBtn = document.getElementById("buy_this_game");
         let backToMenuBtn = document.getElementById("back_to_menu");
+
+        let phoneInput = document.getElementById("user_phone");
+        phoneInput.addEventListener("input", () => {
+            if (!phoneInput.value.startsWith("+7")) {
+                phoneInput.value = "+7 ";
+            }
+        });
 
         backToMainBtn.addEventListener("click", () => {
             document.getElementById("game-menu").style.display = "none";
